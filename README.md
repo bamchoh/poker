@@ -8,4 +8,4 @@ This is poker game which is written in go
 ```
 
 # limitation
-Sorry. THis is Japanese only.
+Sorry. This is Japanese only.
