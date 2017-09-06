@@ -28,9 +28,17 @@ func (s *Stage) Print() {
 func (s *Stage) CheckHand() int {
 	switch {
 	case s.IsRoyalStraightFlush():
-		return HandRoyalStraightFlush
+		if s.jokerExists() {
+			return HandStraight
+		} else {
+			return HandRoyalStraightFlush
+		}
 	case s.IsStraightFlush():
-		return HandStraightFlush
+		if s.jokerExists() {
+			return HandStraight
+		} else {
+			return HandStraightFlush
+		}
 	case s.IsFiveCard():
 		return HandFiveCard
 	case s.IsFourCard():
@@ -49,7 +57,7 @@ func (s *Stage) CheckHand() int {
 	return -1
 }
 
-func (s *Stage) IsFlush() bool {
+func (s *Stage) isSameMark() bool {
 	for i := 0; i < len(*s)-1; i++ {
 		if (*s)[i].Mark() == MarkJoker || (*s)[i+1].Mark() == MarkJoker {
 			continue
@@ -60,6 +68,19 @@ func (s *Stage) IsFlush() bool {
 		}
 	}
 	return true
+}
+
+func (s *Stage) jokerExists() bool {
+	for _, card := range *s {
+		if card.Number() == NumberJoker {
+			return true
+		}
+	}
+	return false
+}
+
+func (s *Stage) IsFlush() bool {
+	return s.isSameMark()
 }
 
 func (s *Stage) checkStraight(expectedNumbers []int) bool {

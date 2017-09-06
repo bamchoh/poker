@@ -92,6 +92,17 @@ func TestIsRoyalStraightFlush(t *testing.T) {
 			Card{MarkHeart, NumberKing},
 			Card{MarkHeart, NumberAce},
 		},
+	}
+
+	for _, stage := range stagetests {
+		if stage.CheckHand() != HandRoyalStraightFlush {
+			t.Error("not royal straight flush")
+		}
+	}
+}
+
+func TestIsNotRoyalStraightFlush(t *testing.T) {
+	stagetests := []Stage{
 		Stage{
 			Card{MarkJoker, NumberJoker},
 			Card{MarkHeart, NumberJack},
@@ -106,17 +117,6 @@ func TestIsRoyalStraightFlush(t *testing.T) {
 			Card{MarkHeart, NumberKing},
 			Card{MarkJoker, NumberJoker},
 		},
-	}
-
-	for _, stage := range stagetests {
-		if stage.CheckHand() != HandRoyalStraightFlush {
-			t.Error("not royal straight flush")
-		}
-	}
-}
-
-func TestIsNotRoyalStraightFlush(t *testing.T) {
-	stagetests := []Stage{
 		Stage{
 			Card{MarkDia, 10},
 			Card{MarkHeart, NumberJack},
@@ -185,13 +185,6 @@ func TestIsStraightFlush(t *testing.T) {
 			Card{MarkClover, 10},
 			Card{MarkClover, 9},
 		},
-		Stage{
-			Card{MarkJoker, NumberJoker},
-			Card{MarkClover, NumberQueen},
-			Card{MarkClover, NumberJack},
-			Card{MarkClover, 10},
-			Card{MarkClover, 9},
-		},
 	}
 
 	for i, stage := range stagetests {
@@ -204,6 +197,13 @@ func TestIsStraightFlush(t *testing.T) {
 
 func TestIsNotStraightFlush(t *testing.T) {
 	stagetests := []Stage{
+		Stage{
+			Card{MarkJoker, NumberJoker},
+			Card{MarkClover, NumberQueen},
+			Card{MarkClover, NumberJack},
+			Card{MarkClover, 10},
+			Card{MarkClover, 9},
+		},
 		Stage{
 			Card{MarkClover, NumberAce},
 			Card{MarkHeart, 2},
@@ -442,6 +442,13 @@ func TestIsNotFullHouse(t *testing.T) {
 
 func TestIsStraight(t *testing.T) {
 	stagetests := []Stage{
+		Stage{
+			Card{MarkJoker, NumberJoker},
+			Card{MarkHeart, NumberJack},
+			Card{MarkHeart, NumberQueen},
+			Card{MarkHeart, NumberKing},
+			Card{MarkHeart, NumberAce},
+		},
 		Stage{
 			Card{MarkHeart, 10},
 			Card{MarkDia, NumberJack},
